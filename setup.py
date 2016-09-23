@@ -4,7 +4,7 @@ import setuptools
 setuptools.setup(
     name="precious",
     version="0.1.0",
-    url="TODO",
+    url="https://github.com/biern/precious",
 
     author="Marcin Biernat",
     author_email="mb@marcinbiernat.pl",
