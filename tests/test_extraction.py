@@ -30,21 +30,21 @@ class TestExtraction:
         def __init__(self, x, y):
             pass
 
-        assert __init__._value_attributes == ('x', 'y')
+        assert __init__.value_attributes == ('x', 'y')
 
     def test_keyword_only_arguments(self):
         @extract_attributes
         def __init__(self, *, x, y):
             pass
 
-        assert __init__._value_attributes == ('x', 'y')
+        assert __init__.value_attributes == ('x', 'y')
 
     def test_keyword_with_default_value(self):
         @extract_attributes
         def __init__(self, x='foo'):
             pass
 
-        assert __init__._value_attributes == ('x', )
+        assert __init__.value_attributes == ('x', )
 
     def test_args_are_not_allowed(self):
         with self.assert_extraction_unpacking_error():

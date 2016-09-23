@@ -8,13 +8,13 @@ class ValueMeta(type):
         return super().__new__(meta, name, bases, namespace)
 
     def _find_attributes(namespace):
-        if hasattr(namespace.get('__init__'), '_value_attributes'):
+        if hasattr(namespace.get('__init__'), 'value_attributes'):
             if 'attributes' in namespace:
                 raise RuntimeError(
                     "Conflicting attributes declarations."
                     "Provide either `attributes` or `__init__` signature.")
 
-            namespace['attributes'] = namespace['__init__']._value_attributes
+            namespace['attributes'] = namespace['__init__'].value_attributes
 
         if 'attributes' not in namespace:
             raise AttributeError(

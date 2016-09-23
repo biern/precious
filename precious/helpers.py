@@ -19,6 +19,6 @@ def extract_attributes(__init__):
     # Skip `self`
     extracted = tuple(itertools.islice(parameters.keys(), 1, None))
 
-    __init__._value_attributes = extracted
+    __init__.value_attributes = extracted
 
     return __init__

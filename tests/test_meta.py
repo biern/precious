@@ -13,6 +13,6 @@ def test_attributes_are_extracted_from_init():
     class Foo(Value):
         def __init__(self):
             pass
-        __init__._value_attributes = ('x', 'y')
+        __init__.value_attributes = ('x', 'y')
 
     assert Foo.attributes == ('x', 'y')
