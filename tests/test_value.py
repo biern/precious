@@ -1,12 +1,19 @@
 import pytest
 
-from precious import Value
+from precious import Value, extract_attributes
 
 
 class Point(Value):
+    attributes = ('x', 'y')
 
-    attributes = ['x', 'y']
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+
+class ExtractedPoint(Value):
+
+    @extract_attributes
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -21,9 +28,9 @@ class LineSegment(Value):
 
 
 class TestValueInstances:
-    @pytest.fixture
-    def point_cls(self):
-        return Point
+    @pytest.fixture(params=(Point, ExtractedPoint))
+    def point_cls(self, request):
+        return request.param
 
     @pytest.fixture
     def line_cls(self):
@@ -36,12 +43,13 @@ class TestValueInstances:
         assert point.y == 2
 
     def test_repr(self, point_cls):
-        assert repr(point_cls(0, 0)) == 'Point(0, 0)'
+        expected = '{cls}(0, 0)'.format(cls=point_cls.__name__)
+        assert repr(point_cls(0, 0)) == expected
 
     def test_compound_repr(self, point_cls, line_cls):
         assert repr(line_cls(point_cls(0, 1), point_cls(2, 1))) == (
-            'LineSegment(Point(0, 1), Point(2, 1))'
-        )
+            'LineSegment({point}(0, 1), {point}(2, 1))'
+        ).format(point=point_cls.__name__)
 
     def test_objects_with_same_parameters_are_equal(self, point_cls):
         assert point_cls(0, 1) == point_cls(0, 1)
@@ -59,7 +67,7 @@ class TestValueInstances:
         hash(point_cls(0, 1))
 
     def test_uses_slots(self, point_cls):
-        assert point_cls.__slots__ == ['x', 'y']
+        assert point_cls.__slots__ == ('x', 'y')
 
         with pytest.raises(AttributeError):
             point_cls(0, 0).foo = 'bar'
