@@ -1,6 +1,6 @@
 import pytest
 
-from precious import Value, extract_attributes
+from precious import Value, extract_attributes, assign_attributes
 
 
 class Point(Value):
@@ -19,6 +19,13 @@ class ExtractedPoint(Value):
         self.y = y
 
 
+class AssignedPoint(Value):
+
+    @assign_attributes
+    def __init__(self, x, y):
+        pass
+
+
 class LineSegment(Value):
     attributes = ('start', 'end')
 
@@ -28,7 +35,7 @@ class LineSegment(Value):
 
 
 class TestValueInstances:
-    @pytest.fixture(params=(Point, ExtractedPoint))
+    @pytest.fixture(params=(Point, ExtractedPoint, AssignedPoint))
     def point_cls(self, request):
         return request.param
 
