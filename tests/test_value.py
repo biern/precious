@@ -61,6 +61,5 @@ class TestValueInstances:
     def test_uses_slots(self, point_cls):
         assert point_cls.__slots__ == ['x', 'y']
 
-    def test_cannot_assign_new_attribute(self, point_cls):
         with pytest.raises(AttributeError):
             point_cls(0, 0).foo = 'bar'

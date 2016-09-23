@@ -1,12 +1,26 @@
 class ValueMeta(type):
     def __new__(meta, name, bases, namespace):
         if not namespace.get('_value_base'):
-            assert 'attributes' in namespace, (
-                '`Value` subclass has to define `attributes` iterable')
+            attributes = meta._find_attributes(namespace)
 
-            namespace['__slots__'] = namespace['attributes']
+            namespace['__slots__'] = attributes
 
         return super().__new__(meta, name, bases, namespace)
+
+    def _find_attributes(namespace):
+        if hasattr(namespace.get('__init__'), '_value_attributes'):
+            if 'attributes' in namespace:
+                raise RuntimeError(
+                    "Conflicting attributes declarations."
+                    "Provide either `attributes` or `__init__` signature.")
+
+            namespace['attributes'] = namespace['__init__']._value_attributes
+
+        if 'attributes' not in namespace:
+            raise AttributeError(
+                '`Value` subclass has to define `attributes` iterable')
+
+        return namespace['attributes']
 
 
 class Value(metaclass=ValueMeta):
