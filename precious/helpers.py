@@ -67,3 +67,12 @@ def _get_arguments(attributes, args, kwargs, defaults):
 
 def values(value_obj):
     return tuple(getattr(value_obj, attr) for attr in value_obj.attributes)
+
+
+def copy(value_obj, **kwargs):
+    attributes = value_obj.attributes
+
+    attrs = dict(zip(attributes, values(value_obj)))
+    attrs.update(kwargs)
+
+    return value_obj.__class__(**attrs)
