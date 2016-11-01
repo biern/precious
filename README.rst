@@ -1,7 +1,7 @@
 Precious
 ========
 
-.. image:: https://img.shields.io/pypi/v/precious.svg
+.. image:: https://img.shields.io/pypi/pyversions/precious.svg
     :target: https://pypi.python.org/pypi/precious
     :alt: Latest PyPI version
 
