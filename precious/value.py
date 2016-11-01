@@ -1,3 +1,6 @@
+from .helpers import values
+
+
 class ValueMeta(type):
     def __new__(meta, name, bases, namespace):
         if not namespace.get('_value_base'):
@@ -28,19 +31,16 @@ class Value(metaclass=ValueMeta):
 
     __slots__ = ()
 
-    def values(self):
-        return tuple(getattr(self, attr) for attr in self.attributes)
-
     def __repr__(self):
         return '{cls}({arguments})'.format(
             cls=self.__class__.__name__,
-            arguments=', '.join(map(repr, self.values()))
+            arguments=', '.join(map(repr, values(self)))
         )
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return NotImplemented
-        return other.values() == self.values()
+        return values(other) == values(self)
 
     def __hash__(self):
-        return hash((self.__class__, ) + self.values())
+        return hash((self.__class__, ) + values(self))

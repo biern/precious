@@ -63,3 +63,7 @@ def _get_arguments(attributes, args, kwargs, defaults):
                     "missing required argument: '{}'".format(attr))
 
     return arguments
+
+
+def values(value_obj):
+    return tuple(getattr(value_obj, attr) for attr in value_obj.attributes)
