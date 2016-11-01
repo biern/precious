@@ -18,8 +18,7 @@ Example
 
    class Color(Value):
        @assign_attributes
-       def __init__(self, red, green, blue, alpha=0):
-           pass
+       def __init__(self, red, green, blue, alpha=0): pass
 
        @property
        def grayscale(self):
@@ -84,11 +83,10 @@ By using a shortcut ``assign_attributes`` to replace a common boilerplate of ext
 
    class Point(Value):
        @assign_attributes
-       def __init__(self, x, y):
-           pass
+       def __init__(self, x, y): pass
 
 
-Note that in example above, attributes are not being assigned in parent's class ``__init__``, thus no ``super()`` call is required.
+Note that in the example above attributes are not being assigned in parent's class ``__init__``, thus no ``super()`` call is required.
 
 
 Features
@@ -114,7 +112,7 @@ Just run ``tox`` in package directory:
 
 .. code-block:: bash
 
-  tox
+  $ tox
 
 
 Why not simply use ``namedtuple``?
@@ -145,8 +143,7 @@ Having to repeat the classname is a minor inconvinience, but the definition is p
 
     class Color(Value):
         @assign_attributes
-        def __init__(self, red, green, blue, alpha=0):
-            pass
+        def __init__(self, red, green, blue, alpha=0): pass
 
         @property
         def grayscale(self):
