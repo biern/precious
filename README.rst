@@ -107,6 +107,16 @@ Memory efficiency
 
 Subclassing ``Value`` automaticaly assignes names of all attributes to ``__slots__`` [1]_.
 
+Testing
+-------
+
+Just run ``tox`` in package directory:
+
+.. code-block:: bash
+
+  tox
+
+
 Why not simply use ``namedtuple``?
 ----------------------------------
 
