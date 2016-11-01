@@ -5,6 +5,10 @@ Precious
     :target: https://pypi.python.org/pypi/precious
     :alt: Latest PyPI version
 
+.. image:: https://travis-ci.org/biern/precious.svg?branch=master
+    :target: https://travis-ci.org/biern/precious
+    :alt: Latest Travis CI build status
+
 Value objects for Python.
 
 
