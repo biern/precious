@@ -9,7 +9,7 @@ Precious
     :target: https://travis-ci.org/biern/precious
     :alt: Latest Travis CI build status
 
-Value objects for Python.
+Implementation of Value Object [#def_fowler]_ for Python.
 
 
 Example
@@ -53,8 +53,8 @@ Installation
 Usage
 -----
 
-Value object classes should subclass base ``Value`` class. Every ``Value`` subclass has to define ``attributes``, which is an iterable containing names of all attributes.
-This may happen by explicitly setting the attribute on the class:
+Value Object definitions should subclass ``Value``. Every ``Value`` subclass has to define ``attributes``, which is an iterable containing names of all attributes.
+This may be achieved by explicitly setting the attribute on the class:
 
 .. code-block:: python
 
@@ -66,7 +66,7 @@ This may happen by explicitly setting the attribute on the class:
            self.y = y
 
 
-By extracting attribute names directly from ``__init__`` definition using one of provided helper decorators:
+Attribute names can also be extracted directly from ``__init__`` definition using one of provided helper decorators:
 
 .. code-block:: python
 
@@ -79,7 +79,7 @@ By extracting attribute names directly from ``__init__`` definition using one of
            self.y = y
 
 
-By using a shortcut ``assign_attributes`` to replace a common boilerplate of extracting and assigning all the attributes in ``__init__``:
+Finally, the ``assign_attributes`` decorator allows to reduce a common boilerplate of extracting and assigning all the attributes in ``__init__``:
 
 .. code-block:: python
 
@@ -102,12 +102,18 @@ Features
 * ``__eq__``
 * ``__repr__``
 * ``__hash__``
+* ``__slots__``
 
+
+Footprint
+*********
+
+``Value`` class footprint is as small as possible. It provides only methods listed above and a single ``attributes`` attribute.
 
 Memory efficiency
 *****************
 
-Subclassing ``Value`` automaticaly assignes names of all attributes to ``__slots__`` [1]_.
+Subclassing ``Value`` automaticaly assignes names of all attributes to ``__slots__`` [#slots]_.
 
 Testing
 -------
@@ -156,10 +162,11 @@ Having to repeat the classname is a minor inconvinience, but the definition is p
 
 To sum up, problems with extending namedtuple include:
 
-* Having to define empty ``__slots__`` [1]_.
+* Having to define empty ``__slots__`` [#slots]_.
 * Overriding ``__new__`` when a default values is required.
 * Repeating attributes names in several places.
 * Unintuitive inheritance by generating parent class on the fly.
 
 
-.. [1] https://docs.python.org/3/reference/datamodel.html#slots
+.. [#def_fowler] http://martinfowler.com/bliki/ValueObject.html
+.. [#slots] https://docs.python.org/3/reference/datamodel.html#slots
